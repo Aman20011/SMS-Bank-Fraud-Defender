@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Check Indian bank SMS senders for fraud risk before clicking links or sharing sensitive information.">
+    <title>SMS Bank Fraud Defender India</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#checker" aria-label="SMS Bank Fraud Defender home">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <span>
+          <strong>SMS Bank Fraud Defender</strong>
+          <small>India-focused sender risk check</small>
+        </span>
+      </a>
+      <nav class="navlinks" aria-label="Official links">
+        <a href="https://smsheader.trai.gov.in" target="_blank" rel="noopener">TRAI Header Info</a>
+        <a href="https://www.sancharsaathi.gov.in/sfc/" target="_blank" rel="noopener">Chakshu</a>
+        <a href="https://www.cybercrime.gov.in/" target="_blank" rel="noopener">Cybercrime 1930</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="workbench" id="checker">
+        <div class="intro">
+          <p class="eyebrow">Defensive SMS verification tool</p>
+          <h1>Check a suspicious bank SMS before you trust it.</h1>
+          <p class="lede">
+            Paste the sender shown in your SMS app, choose the bank it claims to be from,
+            and optionally add the message text. The page checks the sender shape, trusted
+            headers, links, and common fraud language.
+          </p>
+        </div>
+
+        <section class="checker-panel" aria-labelledby="checker-title">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Risk check</p>
+              <h2 id="checker-title">SMS sender inspector</h2>
+            </div>
+            <span class="privacy-pill">Runs in your browser</span>
+          </div>
+
+          <form id="checkerForm" class="checker-form">
+            <label for="senderInput">
+              Sender ID or phone number
+              <span>Examples: VM-HDFCBK, AX-SBIINB, +91 98765 43210</span>
+            </label>
+            <input id="senderInput" name="sender" autocomplete="off" placeholder="Enter sender shown in SMS app" required>
+
+            <label for="bankSelect">
+              Bank claimed in the SMS
+              <span>Select "not sure" if the message does not clearly name a bank.</span>
+            </label>
+            <select id="bankSelect" name="bank">
+              <option value="">Not sure / auto-detect</option>
+              <option value="sbi">State Bank of India</option>
+              <option value="hdfc">HDFC Bank</option>
+              <option value="icici">ICICI Bank</option>
+              <option value="axis">Axis Bank</option>
+              <option value="kotak">Kotak Mahindra Bank</option>
+              <option value="yes">Yes Bank</option>
+              <option value="pnb">Punjab National Bank</option>
+              <option value="bob">Bank of Baroda</option>
+              <option value="union">Union Bank of India</option>
+              <option value="canara">Canara Bank</option>
+            </select>
+
+            <label for="messageInput">
+              SMS text
+              <span>Optional. Remove OTP, PIN, card numbers, and account numbers before pasting.</span>
+            </label>
+            <textarea id="messageInput" name="message" rows="6" placeholder="Paste the SMS text here without any OTP, PIN, CVV, or full account/card number"></textarea>
+
+            <div class="form-actions">
+              <button class="primary-button" type="submit">Check SMS</button>
+              <button class="ghost-button" type="button" id="clearButton">Clear</button>
+            </div>
+          </form>
+
+          <div class="example-row" aria-label="Try example checks">
+            <button type="button" data-example="safe">Verified-looking alert</button>
+            <button type="button" data-example="phish">KYC link fraud</button>
+            <button type="button" data-example="phone">Mobile-number scam</button>
+          </div>
+        </section>
+
+        <aside class="result-panel" aria-live="polite">
+          <div class="phone-preview" aria-hidden="true">
+            <div class="phone-top"></div>
+            <div class="sms-card">
+              <span id="previewSender">BANK-SMS</span>
+              <p id="previewText">Paste a sender and message to see the risk analysis.</p>
+            </div>
+          </div>
+
+          <div class="verdict-block" id="verdictBlock">
+            <p class="eyebrow">Verdict</p>
+            <h2 id="verdictTitle">Ready to check</h2>
+            <p id="verdictSummary">This tool compares the sender and message against defensive rules for SMS bank fraud in India.</p>
+            <div class="score-wrap" aria-label="Risk score">
+              <div>
+                <span>Risk score</span>
+                <strong id="scoreText">0 / 100</strong>
+              </div>
+              <div class="score-track">
+                <span id="scoreFill"></span>
+              </div>
+            </div>
+            <ul class="evidence-list" id="evidenceList">
+              <li>Enter a sender to start.</li>
+            </ul>
+          </div>
+        </aside>
+      </section>
+
+      <section class="action-band" aria-labelledby="actions-title">
+        <div>
+          <p class="eyebrow">When suspicious</p>
+          <h2 id="actions-title">What people should do next</h2>
+        </div>
+        <div class="action-grid">
+          <a class="action-item" href="https://smsheader.trai.gov.in" target="_blank" rel="noopener">
+            <strong>Check SMS header</strong>
+            <span>Use TRAI's Header Information Portal for sender-header lookup.</span>
+          </a>
+          <a class="action-item" href="https://www.sancharsaathi.gov.in/sfc/" target="_blank" rel="noopener">
+            <strong>Report fraud communication</strong>
+            <span>Use Sanchar Saathi Chakshu for suspected SMS, call, or WhatsApp fraud.</span>
+          </a>
+          <a class="action-item" href="https://www.cybercrime.gov.in/webform/cyber_suspect.aspx" target="_blank" rel="noopener">
+            <strong>Report suspect</strong>
+            <span>Cybercrime portal accepts suspicious SMS headers and numbers.</span>
+          </a>
+          <button class="action-item copy-button" type="button" id="copyReportButton">
+            <strong>Copy report draft</strong>
+            <span>Create a short report summary from the current check.</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="info-grid" aria-label="Implementation notes">
+        <article>
+          <h2>Why number-only checks are risky</h2>
+          <p>
+            Indian bank SMSes often use registered alphanumeric headers instead of normal
+            10-digit mobile numbers. A normal mobile number should usually be treated as
+            unverified unless your bank explicitly publishes it as an official sender.
+          </p>
+        </article>
+        <article>
+          <h2>What production needs</h2>
+          <p>
+            Sync a trusted sender registry from TRAI header data, each bank's official
+            communication pages, and reviewed user reports. Then run every check through
+            a backend API with rate limits, audit logs, and privacy controls.
+          </p>
+        </article>
+        <article>
+          <h2>Safety rule</h2>
+          <p>
+            Never ask users to enter OTP, PIN, CVV, passwords, full card numbers, or full
+            account numbers. A fraud-defense site becomes dangerous if it collects the same
+            secrets scammers ask for.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>This is an awareness prototype, not an official government or bank service.</p>
+      <p>If money has been lost, call <strong>1930</strong> or report at <a href="https://www.cybercrime.gov.in/" target="_blank" rel="noopener">cybercrime.gov.in</a> immediately.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
